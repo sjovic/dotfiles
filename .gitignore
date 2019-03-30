@@ -11,6 +11,7 @@
 !.xmonad/xmonad.hs
 !.gitconfig
 !.gitignore
+!.include_files
 !.notmuch-config
 !.offlineimaprc
 !.bash_profile
