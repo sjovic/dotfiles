@@ -37,6 +37,13 @@
         company-lsp-enable-recompletion t)
   )
 
+(use-package typescript-mode
+  :ensure t
+  :config
+  (setq
+   typescript-indent-level 2
+   typescript-auto-indent-flag 0))
+
 ;; (use-package company
 ;;   :ensure t
 ;;   :custom
@@ -51,15 +58,16 @@
 ;;               ("C-n" . company-select-next)
 ;;               ("C-p" . company-select-previous)))
 
-(use-package lsp-java
-  :init
-  (add-hook 'java-mode-hook #'lsp))
+;; (use-package lsp-java
+;;   :init
+;;   (add-hook 'java-mode-hook #'lsp))
 
 (use-package lsp-mode
   :ensure t
   ;; :commands lsp
   :hook
   (js-mode . lsp)
+  (typescript-mode . lsp)
   :config
   (setq lsp-prefer-flymake nil))
 

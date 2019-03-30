@@ -10,6 +10,7 @@
 (column-number-mode 1)
 (desktop-save-mode t)
 (save-place-mode 1)
+;; (savehist-mode 1) ;; save minibuffer history
 (show-paren-mode t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq confirm-kill-processes nil)
@@ -30,7 +31,6 @@
 
 (setq epa-file-select-keys nil)
 (setq epa-pinentry-mode 'loopback)
-;;(setq exec-path (append exec-path '("~/.nvm/versions/node/*/bin")))
 
 (defun new-buffer ()
   (interactive)

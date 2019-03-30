@@ -9,12 +9,10 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(unless package-archive-contents
-  (package-refresh-contents))
-
-;;(setq use-package-always-ensure t)
 (unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+  (package-install 'use-package)
+  (package-refresh-contents))
+;;(setq use-package-always-ensure t)
 
 ;; Load all files from my ~/.emacs.d/init directory
 ;; It doesn't support nested dirs
@@ -50,3 +48,8 @@
   :ensure t
   :config
   (default-text-scale-mode))
+
+(use-package exec-path-from-shell
+  :ensure t)
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
