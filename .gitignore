@@ -4,7 +4,6 @@
 !.config/user-dirs.dirs
 !.emacs.d/
 .emacs.d/*
-!.emacs.d/init/
 !.emacs.d/init.el
 !.xmonad/
 .xmonad/*
