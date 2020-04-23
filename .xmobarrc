@@ -17,7 +17,7 @@ Config {
           , Run Date "%d/%m %H:%M" "date" 10
           , Run Battery ["-t","BAT: <left>%","-L","20","-H","80","-h","green","-n","yellow","-l","red"] 10
           , Run Kbd [("us", "US"), ("rs(latin)", "RS1"), ("rs", "RS2")]
-          , Run Mail [("YND:", "~/mail/Yandex/INBOX")] "mail"
+          , Run Mail [("YND:", "~/mail/yandex/INBOX")] "mail"
        ]
        , sepChar = "%"
        , alignSep = "}{"
