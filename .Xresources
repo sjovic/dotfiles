@@ -1,6 +1,6 @@
-xterm:selectToClipboard: true
-xterm*faceName: xft:Inconsolata
-xterm*faceSize: 16
+xterm*faceName: xft:Hack
+XTerm*renderFont: true
+XTerm*faceSize: 14
 xterm*loginShell: true
 xterm.vt100.locale: true
 xterm*vt100*geometry: 80x50
@@ -29,5 +29,7 @@ xterm*color15: rgb:fc/fc/fc
 xterm*boldMode: false
 xterm*colorBDMode: true
 xterm*colorBD: rgb:fc/fc/fc
-
-Emacs.font: Inconsolata:size=18
+xterm*VT100.Translations: #override \
+	<Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
+	Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+	Ctrl Shift <Key>C: copy-selection(CLIPBOARD)
