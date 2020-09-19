@@ -1,5 +1,5 @@
 Config {
-         font = "xft:Inconsolata:size=12:antialias=true"
+         font = "xft:Monoid:size=9:antialias=true"
        , bgColor = "black"
        , fgColor = "white"
        , position = Top
@@ -16,8 +16,8 @@ Config {
           , Run CoreTemp ["-t", "T1: <core0> T2: <core1>C", "-L", "40", "-H", "75", "-l", "lightblue", "-n", "green", "-h", "red"] 50
           , Run Date "%d/%m %H:%M" "date" 10
           , Run Battery ["-t","BAT: <left>%","-L","20","-H","80","-h","green","-n","yellow","-l","red"] 10
-          , Run Kbd [("us", "US"), ("rs(latin)", "RS1"), ("rs", "RS2")]
-          , Run Mail [("YND:", "~/mail/yandex/INBOX")] "mail"
+          , Run Kbd [("us", "US"), ("rs(latin)", "RS1"), ("rs", "RS2"), ("es", "ES")]
+          , Run Mail [("YND:", "~/maildir/mail/yandex/INBOX")] "mail"
        ]
        , sepChar = "%"
        , alignSep = "}{"

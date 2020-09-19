@@ -5,9 +5,10 @@
 !.xmonad/
 .xmonad/*
 !.xmonad/xmonad.hs
-!.gitignore
-!.bash_profile
+!.tmux.conf
 !.xinitrc
 !.xmobarrc
 !.Xresources
 
+# fzf search
+node_modules

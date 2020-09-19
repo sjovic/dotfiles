@@ -8,10 +8,10 @@ import XMonad.Hooks.SetWMName
 import XMonad.Prompt
 import XMonad.Prompt.Shell
 import XMonad.Prompt.AppLauncher as AL
+-- import XMonad.Prompt.Pass
 
 myManageHook = composeAll
     [
-    className =? "Zathura" --> doShift "4"
     ]
 
 main = do
@@ -23,7 +23,7 @@ main = do
         , layoutHook = avoidStruts $ layoutHook def
         , modMask = mod4Mask
         , startupHook = setWMName "LG3D"
-        , terminal = "uxterm"
+        , terminal = "uxterm +ls"
         }
         `additionalKeys` [
             ((mod4Mask, xK_b), sendMessage ToggleStruts),
@@ -36,6 +36,7 @@ main = do
             ((0, 0x1008ff11), spawn "amixer -q -D pulse sset Master 5%-"),
             ((0, 0x1008ff13), spawn "amixer -q -D pulse sset Master 5%+"),
             ((0, 0x1008ff12), spawn "amixer -q -D pulse sset Master toggle")]
+         -- ((modMask x , xK_p), passPrompt xpconfig)]
          -- ((mod4Mask, xK_x), AL.launchApp defaultXPConfig ">")]
        `removeKeys` [(mod4Mask, xK_p)] -- remove dmenu launch keybinding to use projectile
 

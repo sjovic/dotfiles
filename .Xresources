@@ -1,6 +1,7 @@
-xterm*faceName: xft:Hack
-XTerm*renderFont: true
-XTerm*faceSize: 14
+!xterm*faceName: xft:Hack
+!xterm*faceName: xft:Sudo:size=16
+xterm*faceName: xft:Monoid:size=11
+xterm*renderFont: true
 xterm*loginShell: true
 xterm.vt100.locale: true
 xterm*vt100*geometry: 80x50
