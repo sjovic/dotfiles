@@ -24,7 +24,7 @@
 (menu-bar-mode -1)
 (scroll-bar-mode 0)
 (tool-bar-mode -1)
-(blink-cursor-mode 0)
+;; (blink-cursor-mode 0)
 (column-number-mode 1)
 (desktop-save-mode t)
 (save-place-mode 1)
@@ -76,7 +76,7 @@
 (global-set-key [(control shift down)]  'move-line-down)
 
 (setq org-todo-keywords '((sequence "☐" "ON-HOLD" "☑")))
-(load-theme 'gruvbox-dark-medium t)
+;; (load-theme 'gruvbox-dark-medium t)
 
 ;; (setq message-directory "~/.emacs.d/mail/")
 ;; (setq nnfolder-directory "~/.emacs.d/mail/archive")
@@ -89,17 +89,19 @@
   :config
   (setq echo-keystroke 0.5)) ;; which-key pop-up delay
 
+
+(add-to-list 'default-frame-alist '(font . "Monoid 10"))
+
 ;; (use-package emojify
 ;;   :defer t)
+(set-fontset-font t 'symbol "Noto Color Emoji")
 
-(add-to-list 'default-frame-alist '(font . "Hack 13"))
+;; (use-package default-text-scale
+;;   :ensure t
+;;   :config
+;;   (default-text-scale-mode))
 
-(use-package default-text-scale
-  :ensure t
-  :config
-  (default-text-scale-mode))
-
-(global-visual-line-mode t)
+;; (global-visual-line-mode t)
 
 (use-package exec-path-from-shell
   :ensure t)
@@ -134,7 +136,7 @@
   :ensure t
   :config
   ;; all-the-icons doesn't work without font-lock+
-  ;; download https://www.emacswiki.org/emacs/download/font-lock%2b.el to all-the-fonts-../
+  ;; download https://www.emacswiki.org/emacs/download/font-lock%2b.el to all-the-icons-../
   (use-package font-lock+
     :config (require 'font-lock+))
   )
@@ -212,9 +214,9 @@
 
 ;; (windmove-default-keybindings)
 
-(use-package ace-window
-  :ensure t
-  )
+;; (use-package ace-window
+;;   :ensure t
+;;   )
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -223,6 +225,9 @@
           (lambda ()
             (setq tab-width 2)))
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; (add-hook 'prog-mode-hook (lambda ()
+;;                             (setq buffer-face-mode-face '(:family "Monoid" :height 110))
+;;                             (buffer-face-mode)))
 
 (use-package typescript-mode
   :ensure t)
@@ -240,10 +245,10 @@
   (require 'smartparens-config)
   (smartparens-global-mode))
 
-(use-package highlight-indent-guides
-  :ensure t
-  :config
-  (setq highlight-indent-guides-method 'character))
+;; (use-package highlight-indent-guides
+;;   :ensure t
+;;   :config
+;;   (setq highlight-indent-guides-method 'character))
 
 (use-package editorconfig
   :ensure t
@@ -259,12 +264,26 @@
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
-
 (use-package yasnippet
+  :ensure t
+  :config
+  (use-package yasnippet-snippets
+    :ensure t)
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets" "~/.emacs.d/elpa/yasnippet-snippets-20200508.936/snippets")))
+
+
+(use-package yaml-mode
   :ensure t)
 
 (use-package eglot
-  :ensure t)
+  :ensure t
+  :hook (
+         (js-mode . eglot-ensure)
+         (typescript-mode . eglot-ensure)
+         (python-mode . eglot-ensure)
+         (c-common-mode . eglot-ensure)
+         (java-mode . eglot-ensure)))
+
 
 (use-package company
   :ensure t
@@ -272,16 +291,42 @@
   :hook
   (prog-mode . company-mode)
   :config
-  (setq company-idle-delay 0.5)
-  (setq company-minimum-prefix-length 2)
   (setq company-selection-wrap-around t))
 
 
-(add-hook 'typescript-mode-hook 'eglot-ensure)
-(add-hook 'js-mode-hook 'eglot-ensure)
-(add-hook 'python-mode-hook 'eglot-ensure)
-(add-hook 'c-common-mode-hook 'eglot-ensure)
-(add-hook 'java-mode-hook 'eglot-ensure)
+;; (add-hook 'typescript-mode-hook 'eglot-ensure)
+;; (add-hook 'js-mode-hook 'eglot-ensure)
+;; (add-hook 'python-mode-hook 'eglot-ensure)
+;; (add-hook 'c-common-mode-hook 'eglot-ensure)
+;; (add-hook 'java-mode-hook 'eglot-ensure)
+
+(setq lsp-keymap-prefix "C-c l")
+
+(use-package lsp-mode
+  :ensure t
+  :hook (
+         ;; (js-mode . lsp)
+         ;; (typescript-mode . lsp)
+         (html-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(setq lsp-eslint-server-command
+   '("node"  "/home/s.jovic/src/git/microsoft/vscode-eslint/server/out/eslintServer.js"
+     "--stdio"))
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+(setq company-minimum-prefix-length 1
+      company-idle-delay 0.0) ;; default is 0.2
+
+(use-package notmuch
+  :ensure t)
+
+;; eclipse jdt langserver
+(setenv "CLASSPATH" "/home/s.jovic/src/git/eclipse/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar")
+
+
 ;; (use-package lsp-ui
 ;;   :ensure t
 ;;   :commands lsp-ui-mode
@@ -339,6 +384,34 @@
 ;; (use-package lsp-java
 ;;   :init
 ;;   (add-hook 'java-mode-hook #'lsp))
+
+(setq default-font-size-pt 10)
+
+(defun modi/font-size-adj (&optional arg)
+  "The default C-x C-0/-/= bindings do an excellent job of font resizing.
+They, though, do not change the font sizes for the text outside the buffer,
+example in mode-line. Below function changes the font size in those areas too.
+
+M-<NUM> M-x modi/font-size-adj increases font size by NUM points if NUM is +ve,
+                               decreases font size by NUM points if NUM is -ve
+                               resets    font size if NUM is 0."
+  (interactive "p")
+  (if (= arg 0)
+      (setq font-size-pt default-font-size-pt)
+    (setq font-size-pt (+ font-size-pt arg)))
+  ;; The internal font size value is 10x the font size in points unit.
+  ;; So a 10pt font size is equal to 100 in internal font size value.
+  (set-face-attribute 'default nil :height (* font-size-pt 10)))
+
+(defun modi/font-size-incr ()  (interactive) (modi/font-size-adj +1))
+(defun modi/font-size-decr ()  (interactive) (modi/font-size-adj -1))
+(defun modi/font-size-reset () (interactive) (modi/font-size-adj 0))
+
+(modi/font-size-reset) ; Initialize font-size-pt var to the default value
+
+(global-set-key (kbd "C-x C-+") 'modi/font-size-incr)
+(global-set-key (kbd "C-x C--") 'modi/font-size-decr)
+(global-set-key (kbd "C-x C-=") 'modi/font-size-reset)
 
 
 (server-start)
