@@ -17,9 +17,11 @@ Config {
           , Run Date "%d/%m %H:%M" "date" 10
           , Run Battery ["-t","BAT: <left>%","-L","20","-H","80","-h","green","-n","yellow","-l","red"] 10
           , Run Kbd [("us", "US"), ("rs(latin)", "RS1"), ("rs", "RS2"), ("es", "ES")]
-          , Run Mail [("YND:", "~/maildir/mail/yandex/INBOX")] "mail"
+          , Run Locks
+          , Run Mail [("/M:", "~/maildir/mail/yandex/INBOX")] "mail"
+          -- , Run Mail [("YND:", "~/maildir/mail/yandex/INBOX")] "mail"
        ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu%/%memory%*%swap%/%wlan0wi%/%coretemp%}{%kbd%/%mail%/%battery%/%date%"
+       , template = "%cpu%/%memory%*%swap%/%wlan0wi%/%coretemp%}{%kbd%-%locks%%mail%/%battery%/%date%"
 }
