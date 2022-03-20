@@ -48,10 +48,6 @@
 (setq visual-line-fringe-indicators '(safe-curly-arrow right-curly-arrow))
 (fringe-mode 16)
 
-(add-to-list 'default-frame-alist '(font . "Monoid 10"))
-;;(set-fontset-font t 'symbol "Noto Color Emoji")
-(set-fontset-font t 'symbol "Dejavu Sans Mono")
-
 (setq default-font-size-pt 10)
 
 (electric-pair-mode 1)
@@ -72,7 +68,10 @@
 (setq-default word-wrap t)
 
 ;; (mapc 'load (file-expand-wildcards "~/.config/emacs/lisp/*.el")
-(load-file "~/.config/emacs/lisp/func.el")
+(load-file "~/.config/emacs/lisp/edit.el")
+(load-file "~/.config/emacs/lisp/dired.el")
+(load-file "~/.config/emacs/lisp/org.el")
+(load-file "~/.config/emacs/lisp/ui.el")
 
 (autoload 'notmuch "notmuch" "notmuch mail" t)
 ;; (setq message-directory "~/.emacs.d/mail/")
@@ -83,18 +82,6 @@
 (put 'dired-find-alternate-file 'disabled nil)
 
 (setq enable-recursive-minibuffers t)
-
-;; hide dired details
-(defun xah-dired-mode-setup()
-  (dired-hide-details-mode 1))
-(add-hook 'dired-mode-hook 'xah-dired-mode-setup)
-
-(defun dired-open()
-  (interactive)
-  (let* ((file (dired-get-filename nil t)))
-    (call-process "xdg-open" nil 0 nil file)))
-
-(global-set-key (kbd "C-c o") 'dired-open)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -246,48 +233,6 @@
 
 (use-package js-comint
   :ensure t)
-
-(setq 
- org-todo-keywords '((sequence "TODO(t)" "ON-HOLD(h)" "IN-PROGRESS(p)" "|" "CANCELLED(c)" "DONE(d)"))
- org-hide-leading-stars t
- org-pretty-entities t
- org-fontify-whole-heading-line t
- org-hide-emphasis-markers t
- org-log-done 'time
- org-indent-mode nil)
-
-(setq org-capture-templates
-      '(("j" "Journal Entry"
-         entry (file+datetree "~/txt/private/journal.org")
-         "* %?"
-         :empty-lines 1)))
-
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-M-<return>") 'org-insert-subheading)
-
-(custom-theme-set-faces
- 'user
- '(variable-pitch ((t (:family "Droid Serif" :height 120 :weight thin))))
- '(fixed-pitch ((t ( :family "Monoid" :height 120 :weight normal)))))
-
-(defface org-checkbox-done-text
-  '((t (:strike-through t)))
-  "Face for the text part of a checked org-mode checkbox.")
-
-(font-lock-add-keywords
- 'org-mode
- `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:X\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)"
-    1 'org-checkbox-done-text prepend))
- 'append)
-
-;; (add-hook 'org-mode-hook (lambda ()
-;;   "Beautify Org Checkbox Symbol"
-;;   (push '("[ ]" .  "") prettify-symbols-alist)
-;;   (push '("[X]" . "☑" ) prettify-symbols-alist)
-;;   (push '("[-]" . "❍" ) prettify-symbols-alist)
-;;   (prettify-symbols-mode)))
 
 
 ;; (use-package modus-themes

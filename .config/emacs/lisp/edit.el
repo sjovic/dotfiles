@@ -26,28 +26,6 @@ If point was already at that position, move point to beginning of line."
 
 (global-set-key (kbd "C-x C-r") 'sjovic/open-recent-file)
 
-
-(setq sjovic-font-list '(
-                         "Monoid-10"
-                         "Droid Sans Mono-12"
-                         "Hack-12"
-                         "Inconsolata-13"
-                         "DejaVu Sans Mono-13"
-                         "Jetbrains Mono-13"
-                         "Anonymous Pro-14"
-                         "Ubuntu Mono-13"
-                         "Firacode-12"
-                         "Inconsolata-12"
-                         ))
-
-(defun sjovic/select-font ()
-  "test"
-  (interactive)
-  (let ((font-name (completing-read "Select font: " sjovic-font-list)))
-      (when (member font-name (font-family-list)))
-      (message (format "selected %s" font-name))
-      (set-face-attribute 'default nil :font font-name)))
-
 (defun fdx/rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
