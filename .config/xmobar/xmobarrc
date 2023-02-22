@@ -1,12 +1,14 @@
 Config {
-         font = "xft:Monoid:size=9:antialias=true"
+       -- font = "Monoid 14"
+       -- font = "xft:Monoid:size=14:antialias=true"
+	     font = "Monoid 14"
        , bgColor = "black"
        , fgColor = "white"
-       , position = Top
+       , position = TopH 30
        , persistent = True
        , border = NoBorder
        , hideOnStart = False
-       , lowerOnStart = True
+       , lowerOnStart = False
        , commands = [
             Run Wireless "wlan0" [ "-a", "l", "-w", "4", "-t", "<fc=#8888FF>WLAN:</fc> <essid><quality>", "-L", "50", "-H", "75", "-l", "red", "-n", "yellow", "-h", "green"] 10
           , Run Network "eth0" ["-t","ETH0","-L","0","-H","32","--normal","green","--high","red"] 10
@@ -19,9 +21,8 @@ Config {
           , Run Kbd [("us", "US"), ("rs(latin)", "RS1"), ("rs", "RS2"), ("es", "ES")]
           , Run Locks
           , Run Mail [("/M:", "~/maildir/mail/yandex/INBOX")] "mail"
-          -- , Run Mail [("YND:", "~/maildir/mail/yandex/INBOX")] "mail"
        ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu%/%memory%*%swap%/%wlan0wi%/%coretemp%}{%kbd%-%locks%%mail%/%battery%/%date%"
+       , template = "%cpu%/%memory%/%swap%/%wlan0wi%/%coretemp%}{%kbd%-%locks%%mail%/%battery%/%date%"
 }
