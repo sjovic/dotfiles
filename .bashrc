@@ -146,12 +146,10 @@ export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
 export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME"/xmonad
 export XMONAD_CACHE_DIR="$XDG_CACHE_HOME"/xmonad
 export XMONAD_DATA_DIR="$XDG_DATA_HOME"/xmonad
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
 # fzf
 if [ -f "$HOME/.fzf.bash" ]; then
     source "$HOME/.fzf.bash"
 fi
-
-export NVM_DIR="$HOME/.local/share/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
