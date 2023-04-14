@@ -48,6 +48,7 @@
 (global-visual-line-mode 1)
 (setq visual-line-fringe-indicators '(safe-curly-arrow right-curly-arrow))
 (fringe-mode 16)
+(setq initial-scratch-message nil)
 
 (add-to-list 'default-frame-alist '(font . "Monoid 11"))
 ;;(set-fontset-font t 'symbol "Noto Color Emoji")
@@ -84,8 +85,6 @@
 
 (setq enable-recursive-minibuffers t)
 
-(load-file "~/.config/emacs/custom-functions.el")
-
 (setq
  org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                      (sequence "HOLD(h)" "|" "CANCELLED"))
@@ -107,6 +106,91 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-M-<return>") 'org-insert-subheading)
+(global-set-key (kbd "C-x C-r") 'recentf-open)
+
+(defun smart-beginning-of-line ()
+  "Move point to first non-whitespace character or beginning-of-line.
+
+Move point to the first non-whitespace character on this line.
+If point was already at that position, move point to beginning of line."
+  (interactive "^") ; Use (interactive) in Emacs 22 or older
+  (let ((oldpos (point)))
+    (back-to-indentation)
+    (and (= oldpos (point))
+         (beginning-of-line))))
+
+(global-set-key "\C-a" 'smart-beginning-of-line)
+
+
+(defun sudo-find-file (file)
+  "Open file as root."
+  (interactive
+   (list (read-file-name "Open as root: ")))
+  (find-file (if (file-writable-p file)
+                 file (concat "/sudo:root@localhost:" file))))
+
+(setq sjovic-font-list '(
+                         "Monoid-10"
+                         "Droid Sans Mono-12"
+                         "Hack-12"
+                         "Inconsolata-13"
+                         "DejaVu Sans Mono-13"
+                         "Jetbrains Mono-13"
+                         "Anonymous Pro-14"
+                         "Ubuntu Mono-13"
+                         "Firacode-12"
+                         "Inconsolata-12"
+                         ))
+
+(defun sjovic/select-font ()
+  "test"
+  (interactive)
+  (let ((font-name (completing-read "Select font: " sjovic-font-list)))
+      (when (member font-name (font-family-list)))
+      (message (format "selected %s" font-name))
+      (set-face-attribute 'default nil :font font-name)))
+
+(global-set-key (kbd "C-c r") 'fdx/rename-current-buffer-file)
+
+(defun fdx/delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+
+(global-set-key (kbd "C-c d") 'fdx/delete-current-buffer-file)
+
+(defun new-buffer ()
+  (interactive)
+  (switch-to-buffer (generate-new-buffer "untitled")))
+
+(global-set-key (kbd "<f7>") 'new-buffer)
+
+(defun move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(global-set-key [(control shift up)]  'move-line-up)
+(global-set-key [(control shift down)]  'move-line-down)
+
 
 ;; (custom-theme-set-faces
 ;;  'user
@@ -204,21 +288,6 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; (use-package restclient
-;;   :ensure t
-;;   :commands restclient-mode)
-
-;; (use-package nodejs-repl
-;;   :ensure t
-;;   :hook
-;;   (typescript-mode . nodejs-repl))
-
-;; (defun nvm-which ()
-;;   (let* ((shell (concat (getenv "SHELL") " -l -c 'nvm which'"))
-;;          (output (shell-command-to-string shell)))
-;;     (cadr (split-string output "[\n]+" t))))
-;; (setq nodejs-repl-command #'nvm-which)
-
 (use-package all-the-icons
   :ensure t
   :config
@@ -242,11 +311,6 @@
 ;;   (setq completion-styles '(orderless)
 ;;         completion-category-defaults nil
 ;;         completion-category-overrides '((file (styles partial-completion)))))
-
-;; (use-package avy
-;;   :ensure t
-;;   :bind (("C-:" . avy-goto-char)
-;;          ("C-;" . avy-goto-char-2)))
 
 (use-package typescript-mode
   :ensure t
@@ -282,13 +346,15 @@
   :ensure t
   :mode "\\.ya?ml\\'")
 
+;; (use-package rust-mode
+;;   :ensure t
+;;   :mode "\\.rs'\\")
+
 (use-package eglot
   :ensure t
   :hook ((js-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
-         (python-mode . eglot-ensure)
-         (go-mode . eglot-ensure)
-         (c-common-mode . eglot-ensure)))
+         (rust-mode . eglot-ensure)))
 
 (use-package company
   :ensure t
