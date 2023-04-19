@@ -29,9 +29,4 @@ fi
 # set fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd'
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5
-export QT_AUTO_SCREEN_SET_FACTOR=0
-export QT_SCALE_FACTOR=2
-export QT_FONT_DPI=96
 

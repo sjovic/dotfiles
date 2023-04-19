@@ -5,7 +5,7 @@ export SSH_AUTH_SOCK
 xrdb -merge ~/.Xresources
 xsetroot -solid black
 #display -window root $(ls -d $HOME/data/image/* | shuf -n 1)
-#xscreensaver -no-splash &
+xscreensaver -no-splash &
 xset -b
 #xset r rate 200 50 # cursor rate
 systemctl --user import-environment PATH DBUS_SESSION_BUS_ADDRESS
