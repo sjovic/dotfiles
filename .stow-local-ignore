@@ -1,1 +1,8 @@
 \.git
+\.xinitrc
+\.xprofile
+\.Xresources
+\.xscreensaver
+\.config/redshift.conf
+\.config/xmobar
+\.config/xmonad
