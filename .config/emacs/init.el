@@ -62,18 +62,17 @@
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
+(setq create-lockfiles nil)
 (setq backup-directory-alist
-      `(("." . "~/.config/emacs/saves")))
-;;(setq auto-save-file-name-transforms
-;;     `((".*" ,temporary-file-directory t)))
+      `((".*" . ,(concat user-emacs-directory "saves"))))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 (setq epa-file-select-keys nil)
 (setq epa-pinentry-mode 'loopback)
 
 ;; (global-visual-line-mode t)
 (setq-default word-wrap t)
-
-;; (mapc 'load (file-expand-wildcards "~/.config/emacs/lisp/*.el")
 
 (autoload 'notmuch "notmuch" "notmuch mail" t)
 ;; (setq message-directory "~/.emacs.d/mail/")
