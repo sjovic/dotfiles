@@ -153,3 +153,4 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 if [ -f "$HOME/.fzf.bash" ]; then
     source "$HOME/.fzf.bash"
 fi
+. "$HOME/.cargo/env"
