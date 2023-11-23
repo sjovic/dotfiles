@@ -11,4 +11,4 @@ xset -b
 systemctl --user import-environment PATH DBUS_SESSION_BUS_ADDRESS
 systemctl --no-block --user start xsession.target
 #/usr/bin/redshift &
-/usr/bin/xmonad
+/usr/bin/bspwm
