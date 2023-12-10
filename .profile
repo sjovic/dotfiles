@@ -30,4 +30,6 @@ fi
 # export FZF_DEFAULT_COMMAND='fd'
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-. "$HOME/.cargo/env"
+if [ -d "$CARGO_HOME" ] ; then
+    . "$CARGO_HOME"/env
+fi

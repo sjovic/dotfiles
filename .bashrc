@@ -147,10 +147,15 @@ export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME"/xmonad
 export XMONAD_CACHE_DIR="$XDG_CACHE_HOME"/xmonad
 export XMONAD_DATA_DIR="$XDG_DATA_HOME"/xmonad
 export VOLTA_HOME="$HOME/.volta"
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 # fzf
 if [ -f "$HOME/.fzf.bash" ]; then
     source "$HOME/.fzf.bash"
 fi
-. "$HOME/.cargo/env"
+
+if [ -d "$CARGO_HOME" ] ; then
+    . "$CARGO_HOME"/env
+fi
