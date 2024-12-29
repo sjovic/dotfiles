@@ -124,9 +124,13 @@ super + {Left,Down,Up,Right}
 super + alt + e
 	emacs
 
+# launch vscode
+super + alt + c
+	code
+
 # launch firefox
 super + alt + b
-	firefox
+	firefox -P
 
 # lock screen
 super + l
