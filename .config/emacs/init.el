@@ -329,11 +329,11 @@ If point was already at that position, move point to beginning of line."
 ;;   :config
 ;;   (setq highlight-indent-guides-method 'character))
 
-(use-package editorconfig
-  :ensure t
-  :commands editorconfig-mode
-  :config
-  (editorconfig-mode t))
+;; (use-package editorconfig
+;;   :ensure t
+;;   :commands editorconfig-mode
+;;   :config
+;;   (editorconfig-mode t))
 
 (use-package yasnippet
   :ensure t

@@ -143,9 +143,6 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export NODE_REPL_HISTORY="$XDG_CACHE_HOME"/node_repl_history
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME"/notmuch/notmuchrc
 export ICEAUTHORITY="$XDG_CACHE_HOME"/ICEauthority
-export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME"/xmonad
-export XMONAD_CACHE_DIR="$XDG_CACHE_HOME"/xmonad
-export XMONAD_DATA_DIR="$XDG_DATA_HOME"/xmonad
 export VOLTA_HOME="$HOME/.volta"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
@@ -159,3 +156,5 @@ fi
 if [ -d "$CARGO_HOME" ] ; then
     . "$CARGO_HOME"/env
 fi
+
+eval $(dircolors ~/.config/dircolors)
